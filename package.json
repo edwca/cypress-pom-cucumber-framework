@@ -1,6 +1,5 @@
 {
   "name": "cypress-automation-framework",
-  "type": "commonjs",
   "scripts": {
     "test": "cypress run",
     "cy:open": "cross-env CYPRESS_ENV=qa cypress open",
@@ -8,11 +7,15 @@
     "test:devel": "cross-env CYPRESS_ENV=devel cypress run",
     "test:regresion": "cross-env CYPRESS_ENV=regresion cypress run",
     "encrypt:env": "cross-env ENV_SECRET_KEY=clave_secreta tsx scripts/encrypt-env.ts",
-    "decrypt:env": "cross-env ENV_SECRET_KEY=clave_secreta tsx scripts/decrypt-env.ts"
+    "decrypt:env": "cross-env ENV_SECRET_KEY=clave_secreta tsx scripts/decrypt-env.ts",
+    "test:connectiondb": "cross-env CYPRESS_ENV=qa tsx database/database.ts",
+    "repair:cy": "npx cypress cache clear && npx cypress install",
+    "clean:cycache": "rimraf \"$APPDATA/Cypress/cy/production/projects/*\""
   },
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^22.0.1",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.4",
+    "@types/mssql": "^9.1.7",
     "cross-env": "^7.0.3",
     "cypress": "^14.2.1",
     "dotenv": "^16.4.7",
@@ -20,5 +23,8 @@
     "ts-node": "^10.9.2",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "mssql": "^11.0.1"
   }
 }
