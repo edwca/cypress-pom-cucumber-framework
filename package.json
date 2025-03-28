@@ -1,0 +1,19 @@
+{
+  "name": "cypress-automation-framework",
+  "type":"commonjs",
+  "scripts": {
+    "test": "cypress run",
+    "cy:open": "cross-env CYPRESS_ENV=qa cypress open",
+    "test:qa": "cross-env CYPRESS_ENV=qa cypress run",
+    "test:devel": "cross-env CYPRESS_ENV=devel cypress run",
+    "test:regresion": "cross-env CYPRESS_ENV=regresion cypress run"
+  },
+  "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^22.0.1",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.4",
+    "cross-env": "^7.0.3",
+    "cypress": "^14.2.1",
+    "dotenv": "^16.4.7",
+    "typescript": "^5.8.2"
+  }
+}
