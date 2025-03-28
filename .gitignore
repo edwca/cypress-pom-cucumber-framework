@@ -8,9 +8,9 @@ cypress/screenshots/
 cypress/videos/
 cypress/downloads/
 
-# Env files
+# # Env files
 .env*
-!.env.example
+!.env*.enc
 
 # Logs
 *.log
@@ -19,7 +19,6 @@ yarn-debug.log*
 yarn-error.log*
 
 # IDEs
-.vscode/
 .idea/
 .DS_Store
 

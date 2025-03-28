@@ -70,16 +70,25 @@ npm run test:regresion    # Ejecuta las pruebas en entorno Regresión
 
 ## ⚙️ Variables de entorno
 
-Define las siguientes variables en tus archivos `.env.qa`, `.env.devel`, etc:
+Las variables sensibles se encuentran en archivos `.env` encriptados. Para trabajar localmente:
 
-```
-BASE_URL=http://tuservidor:puerto
-LOGIN_USERNAME=tu_usuario
-PASSWORD=tu_contraseña
-RUT=identificador_personal
+### 🔓 Desencriptar:
+```bash
+npm run decrypt:env
 ```
 
-> ❗️ Evita usar `USERNAME` ya que puede estar reservado por el sistema operativo.
+### 🔐 Encriptar (antes de subir a Git):
+```bash
+npm run encrypt:env
+```
+
+> Requiere definir una clave de entorno `ENV_SECRET_KEY`. Puedes exportarla temporalmente:
+
+```bash
+export ENV_SECRET_KEY=clave_segura_123
+```
+
+Los scripts se encuentran en `scripts/encrypt-env.ts` y `scripts/decrypt-env.ts` y usan la librería `crypto` + `glob` + `tsx` para ejecutarse sin necesidad de compilar manualmente.
 
 ---
 

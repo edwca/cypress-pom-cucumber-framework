@@ -1,12 +1,14 @@
 {
   "name": "cypress-automation-framework",
-  "type":"commonjs",
+  "type": "commonjs",
   "scripts": {
     "test": "cypress run",
     "cy:open": "cross-env CYPRESS_ENV=qa cypress open",
     "test:qa": "cross-env CYPRESS_ENV=qa cypress run",
     "test:devel": "cross-env CYPRESS_ENV=devel cypress run",
-    "test:regresion": "cross-env CYPRESS_ENV=regresion cypress run"
+    "test:regresion": "cross-env CYPRESS_ENV=regresion cypress run",
+    "encrypt:env": "cross-env ENV_SECRET_KEY=clave_secreta tsx scripts/encrypt-env.ts",
+    "decrypt:env": "cross-env ENV_SECRET_KEY=clave_secreta tsx scripts/decrypt-env.ts"
   },
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^22.0.1",
@@ -14,6 +16,9 @@
     "cross-env": "^7.0.3",
     "cypress": "^14.2.1",
     "dotenv": "^16.4.7",
+    "glob": "^11.0.1",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.3",
     "typescript": "^5.8.2"
   }
 }
