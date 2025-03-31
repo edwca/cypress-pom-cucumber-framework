@@ -174,3 +174,22 @@ export default config;
     ]
   }
   ```
+
+  ## 🧠 Convenciones
+
+Asi como en todo lenguaje existen formas de escribir, el proyecto no es la excepción, es por ello que:
+
+Convenciones de archivos:
+- Usar camelCase para los nombres de archivos
+- Usar .ts para los archivos de implementación
+- Usar .tsx para los archivos que contienen JSX
+- Usar .service.ts para los archivos de servicios
+- Usar .controller.ts para los archivos de controladores
+
+Convenciones de nomenclatura 
+- Usar camelCase para los nombres de variables y funciones
+- Usar PascalCase para los nombres de clases e interfaces
+- Usar camelCase para los miembros de interfaces
+- Usar PascalCase para nombres de tipos y enumeraciones
+
+---

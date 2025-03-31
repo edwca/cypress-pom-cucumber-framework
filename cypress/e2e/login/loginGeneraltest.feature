@@ -1,6 +1,6 @@
 Feature: Login y Consulta General
 
-  Scenario: Realizar login y consultar por RUT
+  Scenario: US-00: Realizar login y consultar por RUT
     Given que ingreso al login
     When ingreso las credenciales correctamente
     Then navego al módulo Identificación General
