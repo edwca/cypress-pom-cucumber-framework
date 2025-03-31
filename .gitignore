@@ -25,3 +25,8 @@ yarn-error.log*
 # Docker
 *.pid
 *.bak
+
+# Allure reports
+allure-report/
+allure-results/
+

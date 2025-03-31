@@ -61,3 +61,8 @@ Cypress.Commands.add(
       }) as Cypress.Chainable<JQuery<HTMLElement>>;
   }
 );
+
+Cypress.Commands.add("screenshotStep", (stepName: string) => {
+  cy.screenshot(stepName, { capture: 'runner' });
+  cy.allure().step(stepName, true);
+});
