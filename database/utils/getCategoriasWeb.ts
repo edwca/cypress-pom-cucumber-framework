@@ -1,5 +1,5 @@
 import sql from 'mssql';
-import { sqlConfig } from './database';
+import { sqlConfig } from '../database';
 
 export async function getCategoriasWeb(): Promise<{ id: string, nombre: string }[]> {
   try {

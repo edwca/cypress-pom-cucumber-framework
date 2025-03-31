@@ -14,35 +14,53 @@ Este proyecto creado en nodejs utiliza las tecnologias cypress con cucumber dond
 ## 📁 Estructura del Proyecto
 
 ```
-├── cypress
-│   ├── e2e
-│   │   └── login
-│   │       └── loginGeneralTest.feature
-│   ├── support
-│   │   ├── commands.ts
-│   │   ├── e2e.ts
-│   │   └── index.ts
-│   ├── pages
+Detacoop_Automation/
+├── .github/
+│   └── workflows/
+│       └── cypress.yml              # CI en GitHub Actions
+├── .vscode/
+│   └── settings.json                # Configuración del workspace VSCode
+├── cypress/
+│   ├── downloads/                   # Archivos descargados durante tests
+│   ├── e2e/                         # Archivos feature Gherkin
+│   │   ├── login/
+│   │   │   └── loginGeneraltest.feature
+│   │   └── pruebaConexion/
+│   │       └── testDbConnection.feature
+│   ├── fixtures/                    # Datos estáticos de prueba
+│   │   └── example.json
+│   ├── pages/                       # Page Objects
 │   │   └── loginPage.ts
-│   ├── step-definitions
-│   │   └── loginGeneralTest.steps.ts
-│   └── fixtures
-│       └── users.json
-├── database
-│   └── database.ts
-├── .env.qa
-├── .env.devel
-├── .env.regresion
+│   ├── screenshots/                # Evidencias de ejecución
+│   │   └── pruebaConexion/
+│   ├── step-definitions/           # Steps para Cucumber
+│   │   ├── loginGeneralTest.steps.ts
+│   │   └── testDbConnection.ts
+│   └── support/                    # Archivos de soporte (custom commands, hooks, etc.)
+│       ├── commands.ts
+│       ├── e2e.ts
+│       └── index.ts
+├── database/
+│   ├── utils/
+│   │   ├── allDatabase.ts          # Consulta de todas las DBs
+│   │   └── getCategoriasWeb.ts     # Consulta específica
+│   └── database.ts                 # Configuración general DB
+├── scripts/
+│   ├── encrypt-env.ts              # Encriptar archivos .env
+│   └── decrypt-env.ts              # Desencriptar archivos .env
+├── services/
+│   └── userFormatRut.ts            # Lógica reutilizable (ej. formateo RUT)
+├── types/
+│   └── typesTemplate.ts            # Tipado global (interfaces, enums, etc.)
+├── .env.qa                         # Variables QA (encriptado recomendado)
+├── .env.devel                      # Variables Devel
+├── .env.regresion                 # Variables para regresión
 ├── .gitignore
-├── .vscode
-│   └── settings.json
-├── cypress.config.ts
 ├── cypress-cucumber-preprocessor.config.ts
-├── Dockerfile
-├── .github
-│   └── workflows
-│       └── cypress.yml
-├── package.json
+├── cypress.config.ts              # Config principal Cypress + plugins
+├── dockerfile                     # (opcional) Contenedor Docker
+├── package.json                   # Scripts y dependencias
+├── package-lock.json
 ├── tsconfig.json
 └── README.md
 ```

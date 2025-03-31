@@ -1,6 +1,6 @@
 // node-tasks/db/task.ts
 import sql from 'mssql';
-import { sqlConfig } from './database';
+import { sqlConfig } from '../database';
 
 export async function testSqlConnection(): Promise<string[]> {
   try {

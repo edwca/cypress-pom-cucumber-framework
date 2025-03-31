@@ -29,8 +29,8 @@ import dotenv from 'dotenv';
 import createBundler from '@bahmutov/cypress-esbuild-preprocessor';
 import { createEsbuildPlugin } from '@badeball/cypress-cucumber-preprocessor/esbuild';
 import { addCucumberPreprocessorPlugin } from '@badeball/cypress-cucumber-preprocessor';
-import { testSqlConnection } from './database/all-tables';
-import { getCategoriasWeb } from './database/getCategoriasWeb';
+import { testSqlConnection } from './database/utils/allDatabase';
+import { getCategoriasWeb } from './database/utils/getCategoriasWeb';
 
 dotenv.config({ path: `.env.${process.env.CYPRESS_ENV || 'qa'}` });
 
