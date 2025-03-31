@@ -1,0 +1,1 @@
+[{"uid":"f77e655a3c2464cc","name":"US-00: Realizar login y consultar por RUT","time":{"start":1743439309340,"stop":1743439314394,"duration":5054},"status":"failed","severity":"normal"},{"uid":"83ba466837525d6d","name":"Validar conexión y consulta de base de datos","time":{"start":1743439306177,"stop":1743439306832,"duration":655},"status":"passed","severity":"normal"}]

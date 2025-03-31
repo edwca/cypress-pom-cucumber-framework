@@ -1,0 +1,1 @@
+{"uuid":"7a4cb633-574d-4743-9277-0a6d2e6a04cc","name":"\"after each\" hook: __allure_after_each_hook__","children":["9aa018cb-bd0d-48a9-9ee9-9a8c32911e60"],"befores":[],"afters":[{"status":"passed","statusDetails":{},"stage":"finished","steps":[],"attachments":[],"parameters":[],"start":1743439306865,"name":"\"after each\" hook: __allure_after_each_hook__","stop":1743439306880}]}

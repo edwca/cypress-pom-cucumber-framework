@@ -84,6 +84,13 @@ npm run test:devel        # Ejecuta las pruebas en entorno Desarrollo
 npm run test:regresion    # Ejecuta las pruebas en entorno Regresión
 ```
 
+## 📊 Reporteria
+```bash
+allure:generate: genera el reporte a partir de los resultados en allure-results.
+allure:open: abre el reporte en el navegador.
+allure:clear: limpia los reportes anteriores.
+Todos los scripts de prueba (test:*) incluyen la generación y apertura del reporte automáticamente.
+```
 ---
 
 ## ⚙️ Variables de entorno
