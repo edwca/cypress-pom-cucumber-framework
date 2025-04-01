@@ -2,7 +2,7 @@
   "name": "cypress-automation-framework",
   "scripts": {
     "test": "cypress run",
-    "cy:open": "cross-env CYPRESS_ENV=qa cypress open",
+    "cy:open": "CYPRESS_ENV=qa allure=true npx cypress open",
     "test:qa": "cmd /C \"cross-env CYPRESS_ENV=qa allure=true npx cypress run || exit 0\" & npm run allure:generate & npm run allure:open",
     "test:devel": "cmd /C \"cross-env CYPRESS_ENV=devel allure=true npx cypress run || exit 0\" & npm run allure:generate & npm run allure:open",
     "test:regresion": "cmd /C \"cross-env CYPRESS_ENV=regresion allure=true npx cypress run || exit 0\" & npm run allure:generate & npm run allure:open",
@@ -25,6 +25,7 @@
     "cross-env": "^7.0.3",
     "cypress": "^14.2.1",
     "cypress-on-fix": "^1.1.0",
+    "cypress-real-events": "^1.14.0",
     "dotenv": "^16.4.7",
     "glob": "^11.0.1",
     "ts-node": "^10.9.2",
@@ -32,6 +33,7 @@
     "typescript": "^5.8.2"
   },
   "dependencies": {
+    "@ftapiat/js-rut-utils": "^1.0.1",
     "mssql": "^11.0.1"
   }
 }

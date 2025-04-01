@@ -15,6 +15,8 @@ dotenv.config({ path: `.env.${process.env.CYPRESS_ENV || "qa"}` });
 export default defineConfig({
   e2e: {
     baseUrl: process.env.BASE_URL,
+    viewportWidth: 1440,
+    viewportHeight: 1000,
     env: {
       allure: true,
       rut: process.env.RUT,

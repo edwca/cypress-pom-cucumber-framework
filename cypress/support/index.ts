@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+/// <reference types="allure-cypress" />
 
 declare global {
     namespace Cypress {
@@ -23,6 +24,19 @@ declare global {
       }
     }
   }
+
+  declare global {
+    namespace Cypress {
+      interface Chainable {
+        /**
+         * Obtiene el body de un iframe de forma segura
+         * @param screen Screen de la prueba
+         */
+        getNestedIframeBody(outerIframeSelector: string, innerIframeSelector:string): Chainable<JQuery<HTMLElement>>;
+      }
+    }
+  }
+  
   
   export {};
   

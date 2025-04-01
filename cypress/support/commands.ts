@@ -38,9 +38,7 @@
 
 /// <reference types="cypress" />
 
-Cypress.Commands.add(
-  "getIframeGeneralInformation",
-  (iframeSelector: string): Cypress.Chainable<JQuery<HTMLElement>> => {
+Cypress.Commands.add("getIframeGeneralInformation",(iframeSelector: string): Cypress.Chainable<JQuery<HTMLElement>> => {
     return cy
       .get(iframeSelector, { timeout: 10000 })
       .should("exist")
@@ -61,6 +59,34 @@ Cypress.Commands.add(
       }) as Cypress.Chainable<JQuery<HTMLElement>>;
   }
 );
+
+
+Cypress.Commands.add("getNestedIframeBody",(outerIframeSelector: string, innerIframeSelector: string): Cypress.Chainable<JQuery<HTMLElement>> => {
+    return cy
+      .get(outerIframeSelector, { timeout: 10000 })
+      .should("exist")
+      .then(($outerIframe) => {
+        return new Cypress.Promise((resolve) => {
+          const outerEl = $outerIframe[0] as HTMLIFrameElement;
+
+          const tryGetInner = () => {
+            const outerBody = outerEl.contentDocument?.body;
+            const innerIframe = outerBody?.querySelector(innerIframeSelector) as HTMLIFrameElement;
+            const innerBody = innerIframe?.contentDocument?.body;
+
+            if (innerBody && innerBody.children.length > 0) {
+              resolve(cy.wrap(innerBody));
+            } else {
+              setTimeout(tryGetInner, 100);
+            }
+          };
+
+          tryGetInner();
+        });
+      }) as Cypress.Chainable<JQuery<HTMLElement>>;
+  }
+);
+
 
 Cypress.Commands.add("screenshotStep", (stepName: string) => {
   cy.screenshot(stepName, { capture: 'runner' });
