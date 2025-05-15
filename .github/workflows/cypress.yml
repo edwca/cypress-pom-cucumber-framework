@@ -69,11 +69,11 @@ jobs:
       - name: Zip HTML Report
         run: |
           mkdir -p artifacts
-          zip -r artifacts/html-report.zip allure-report/ || echo "No HTML report found"
+          zip -r artifacts/allure-html-report.zip allure-report || echo "No HTML report found"
 
       # ✅ Sube el .zip de reportes como artefacto adicional
       - name: Upload report artifact
         uses: actions/upload-artifact@v4
         with:
           name: Cypress-html-report
-          path: artifacts/html-report.zip
+          path: artifacts/allure-html-report.zip
