@@ -28,10 +28,19 @@ jobs:
         with:
           node-version: 20
 
+      # ✅ Cahing de carpete .cache/Cypress para una ejecución más rápida
+      - name: Restore Cypress binary cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            cypress-cache-${{ runner.os }}-
+
       # ✅ Instala dependencias del proyecto
       - name: Install dependencies
         run: npm install
-      
+
       # ✅ Validar si existe ENV_SECRET_KEY creado en los secrets antes de ejecutar el script de desencriptado
       - name: 🔒 Check for ENV_SECRET_KEY secret
         run: |
@@ -46,8 +55,8 @@ jobs:
       - name: Decrypt .env files
         run: npx tsx scripts/decrypt-env.ts
         env:
-         ENV_SECRET_KEY: ${{ secrets.ENV_SECRET_KEY }}
-      
+          ENV_SECRET_KEY: ${{ secrets.ENV_SECRET_KEY }}
+
       # ✅ Instala el cliente de Allure
       - name: Install Allure commandline
         run: npm install -g allure-commandline --save-dev
