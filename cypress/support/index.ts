@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+
+
 /// <reference types="cypress" />
 /// <reference types="allure-cypress" />
 
@@ -36,6 +39,14 @@ declare global {
       }
     }
   }
+  declare global {
+    namespace Cypress {
+      interface Chainable {
+        submitClienteForm(sessionCookie: string): Chainable<Response<any>>;
+      }
+    }
+  }
+  
   
   
   export {};

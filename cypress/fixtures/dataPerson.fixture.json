@@ -1,0 +1,22 @@
+{
+  "firstPart": {
+    "birthdate": "09/04/1980",
+    "activity": "Agricultor",
+    "load": 1,
+    "education": "Básica Completa",
+    "profession": "Abogacía / Derecho / Leyes",
+    "serieRut": "sdsd",
+    "cedula_exp": "09/04/2030",
+    "gender": "Masculino"
+  },
+  "secondPart": {
+    "client_origin": "Acercamiento a sucursal",
+    "office": "1 - CASA MATRIZ",
+    "nationality": "CHILENA",
+    "income": "Empleado dependiente",
+    "student": "SI",
+    "commercial_relations": "CRÉDITOS PARA FINES GENERALES",
+    "legal_ap": "SI",
+    "retired_person": "SI"
+  }
+}

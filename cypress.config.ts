@@ -9,6 +9,8 @@ import cypressOnFix from "cypress-on-fix";
 import { allureCypress } from "allure-cypress/reporter";
 import os from "os";
 import { Status } from "allure-js-commons";
+import path from "path";
+import fs from "fs";
 
 dotenv.config({ path: `.env.${process.env.CYPRESS_ENV || "qa"}` });
 
@@ -44,6 +46,13 @@ export default defineConfig({
           return categorias;
         },
 
+        // Permite crear fixtures desde el backend
+        writeFixture({ filename, data }) {
+          const filePath = path.join("cypress", "fixtures", filename);
+          fs.writeFileSync(filePath, JSON.stringify(data, null, 2), "utf8");
+          return null;
+        },
+        
         // Fix para tareas que Allure necesita (evita errores "task not handled")
         writeAllureResults: () => null,
         allureWriter: () => null,

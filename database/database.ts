@@ -1,13 +1,20 @@
-// database/database.ts
-import dotenv from 'dotenv';
-import path from 'path';
-import sql from 'mssql';
+/* eslint-disable no-console */
+import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
+import sql from "mssql";
 
-// Carga dinámica de .env según entorno
-dotenv.config({ path: path.resolve(__dirname, `../.env.${process.env.CYPRESS_ENV || 'qa'}`) });
+// Definición compatible con ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// Validación de variables de entorno requeridas
-['DB_HOST', 'DB_USER', 'DB_PASSWORD'].forEach((envVar) => {
+// Cargar variables desde el .env correspondiente
+dotenv.config({
+  path: path.resolve(__dirname, `../.env.${process.env.CYPRESS_ENV || "qa"}`),
+});
+
+// Validar existencia de variables requeridas
+["DB_HOST", "DB_USER", "DB_PASSWORD"].forEach((envVar) => {
   if (!process.env[envVar]) {
     console.error(`❌ La variable de entorno ${envVar} no está definida`);
   }
@@ -20,5 +27,5 @@ export const sqlConfig: sql.config = {
   options: {
     encrypt: true,
     trustServerCertificate: true,
-  }
+  },
 };

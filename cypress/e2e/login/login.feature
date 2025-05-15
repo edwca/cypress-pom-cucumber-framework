@@ -1,4 +1,4 @@
-Feature: Login app total core
+Feature: Logeo en total core
 
   @IdentificacionGeneral
   Scenario Outline: US-00 / US-01 - Login credenciales validas e invalidas

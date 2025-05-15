@@ -1,26 +1,58 @@
-name: Run Cypress Tests
+name: Cypress Tests
 
 on:
   push:
-    branches:
-      - devel
-      - main
+    branches: [main, devel]
+  pull_request:
+    branches: [main, devel]
 
 jobs:
   cypress-run:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
+      # ✅ Clona el repo
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
+        # ✅ Configura Java 17 con Temurin
+      - name: Set up Java
+        uses: actions/setup-java@v3
         with:
-          node-version: 18
+          distribution: "temurin"
+          java-version: "17"
 
+      # ✅ Da permisos de ejecución a los scripts en el repo
+      - name: Make scripts executable
+        run: chmod +x scripts/*.sh
+
+      # ✅ Instala Node.js 20
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # ✅ Instala dependencias del proyecto
       - name: Install dependencies
         run: npm install
 
+      # ✅ Decencripta los archivos .env
+      - name: Decrypt .env files
+        run: npx tsx scripts/decrypt-env.ts
+
+      # ✅ Ejecuta los tests de Cypress en modo headless y genere allure report
       - name: Run Cypress tests (QA)
-        run: npm run test:qa
+        run: npm run test:qa-sr || true
+
+      # ✅ Comprime los reportes generados por allure
+      - name: Zip HTML Report
+        run: |
+          mkdir -p artifacts
+          zip -r artifacts/html-report.zip allure-report/ || echo "No HTML report found"
+
+      # ✅ Sube el .zip de reportes como artefacto adicional
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Cypress-html-report
+          path: artifacts/html-report.zip

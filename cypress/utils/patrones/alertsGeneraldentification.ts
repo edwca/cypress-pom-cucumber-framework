@@ -4,4 +4,10 @@ export const generalIdentificationAlertPatterns: RegExp[] = [
     /es\s+necesario\s+especificar.+RUT DEL CLIENTE/i,
   ];
   
+  export const generalConfirmIdentificationAlertPatterns: RegExp[] = [
+    /^Datos actualizados con éxito\.?$/i,
+  ];
+
+
+  
   

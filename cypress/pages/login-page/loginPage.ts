@@ -1,6 +1,7 @@
 export class LoginPage {
     visit() {
       cy.visit('/login.aspx');
+      
     }
   
     fillUsername(username: string) {

@@ -1,3 +1,4 @@
+/* eslint-disable */
 type Person = {
   name: string;
   age: number;
