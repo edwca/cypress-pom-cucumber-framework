@@ -1,4 +1,0 @@
-"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","2977","US-00 / US-01 - Login credenciales validas e invalidas","Logeo en total core","Thu May 15 12:12:46 CLT 2025","passed","Thu May 15 12:12:49 CLT 2025","","","",""
-"","2747","Enviar formulario de cliente y verificar respuesta","Envio de formulario de cliente","Thu May 15 12:12:52 CLT 2025","passed","Thu May 15 12:12:55 CLT 2025","","","",""
-"","42","US-00: Identificación general de usuario particular con rut valido e invalido, fecha de nacimiento menor a la actual,con un numero mayor a 9 digitos (example #1)","Registro nuevo cliente en Datos personales - Identificación General - Persona Natural","Thu May 15 12:12:58 CLT 2025","skipped","Thu May 15 12:12:58 CLT 2025","","","",""

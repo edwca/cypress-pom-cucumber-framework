@@ -1,1 +1,0 @@
-[{"name":"Errores de validación","messageRegex":".*expected.*to.*","matchedStatuses":["failed"]},{"name":"Errores inesperados","messageRegex":".*Exception.*","matchedStatuses":["broken"]}]
