@@ -65,15 +65,15 @@ jobs:
       - name: Run Cypress tests (QA)
         run: npm run test:qa-sr || true
 
-      # ✅ Movemos los reportes al artefacto
+      # ✅ Comprime los reportes generados por allure que toma desde el comando allure:generate"
       - name: Move HTML Report to artifacts
         run: |
           mkdir -p artifacts
           cp -r allure-report/* artifacts/
 
-      # ✅ Sube el .zip de reportes como artefacto adicional
+      # ✅ Sube el reportes como artefacto adicional
       - name: Upload report artifact
         uses: actions/upload-artifact@v4
         with:
           name: Cypress-html-report
-          path: artifacts/allure-html-report.zip
+          path: artifacts/
