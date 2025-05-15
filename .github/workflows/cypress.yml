@@ -31,10 +31,22 @@ jobs:
       # ✅ Instala dependencias del proyecto
       - name: Install dependencies
         run: npm install
+      
+      # ✅ Validar si existe ENV_SECRET_KEY creado en los secrets antes de ejecutar el script de desencriptado
+      - name: 🔒 Check for ENV_SECRET_KEY secret
+        run: |
+          if [ -z "${ENV_SECRET_KEY}" ]; then
+            echo "::error title=Missing Secret Key::ENV_SECRET_KEY is not set. Please add it in GitHub → Settings → Secrets → Actions"
+            exit 1
+          fi
+        env:
+          ENV_SECRET_KEY: ${{ secrets.ENV_SECRET_KEY }}
 
       # ✅ Decencripta los archivos .env
       - name: Decrypt .env files
         run: npx tsx scripts/decrypt-env.ts
+        env:
+         ENV_SECRET_KEY: ${{ secrets.ENV_SECRET_KEY }}
 
       # ✅ Ejecuta los tests de Cypress en modo headless y genere allure report
       - name: Run Cypress tests (QA)
