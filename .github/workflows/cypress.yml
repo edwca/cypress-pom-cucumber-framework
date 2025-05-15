@@ -47,6 +47,10 @@ jobs:
         run: npx tsx scripts/decrypt-env.ts
         env:
          ENV_SECRET_KEY: ${{ secrets.ENV_SECRET_KEY }}
+      
+      # ✅ Instala el cliente de Allure
+      - name: Install Allure commandline
+        run: npm install -g allure-commandline --save-dev
 
       # ✅ Ejecuta los tests de Cypress en modo headless y genere allure report
       - name: Run Cypress tests (QA)
