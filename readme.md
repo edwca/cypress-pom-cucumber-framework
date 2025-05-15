@@ -78,19 +78,30 @@ npm install
 ## 🧪 Comandos para ejecutar pruebas
 
 ```bash
-npm run cy:open           # Ejecuta Cypress con entorno QA en modo interactivo
-npm run test:qa           # Ejecuta las pruebas en entorno QA (headless)
-npm run test:devel        # Ejecuta las pruebas en entorno Desarrollo
-npm run test:regresion    # Ejecuta las pruebas en entorno Regresión
+npm run test	                #Ejecuta todas las pruebas en modo headless, sin entorno específico.
+npm run cy:open	              #Abre la GUI de Cypress en entorno qa, con Allure activado.
+npm run test:qa-sr	          #Ejecuta pruebas en qa sin @skip, genera Allure (usado en CI).
+npm run test:qa	              #Ejecuta en qa, genera y abre reporte Allure. 
+npm run test:devel	          #Igual al anterior pero en devel. 
+npm run test:regresion	      #Igual pero en regresion. 
+```
+
+## Otros comandos utiles
+```bash
+npm run test:connectiondb	    #Ejecuta una prueba de conexión a base de datos con entorno qa.
+npm run repair:cy	            #Limpia el caché de Cypress y reinstala el binario.
+npm run clean:cycache	        #Limpia archivos temporales personalizados de Cypress.
 ```
 
 ## 📊 Reporteria
 
 ```bash
-allure:generate: genera el reporte a partir de los resultados en allure-results.
-allure:open: abre el reporte en el navegador.
-allure:clear: limpia los reportes anteriores.
-Todos los scripts de prueba (test:*) incluyen la generación y apertura del reporte automáticamente.
+"allure:generate":              #genera el reporte a partir de los resultados en allure-results.
+"allure:open":                  #abre el reporte en el navegador.
+"allure:clear":                 #limpia los reportes anteriores.
+"allure open ." :               #Todos los scripts de prueba (test:*) incluyen la generación y apertura del reporte automáticamente.
+                                #Para ver los resultados de las pruebas a través de ci/cd una vez que descargamos desde el JOB el artefacto,
+                                #necesitamos ir a la ruta del reporte y ejecutar con powerShell el comando allure open .
 ```
 
 ---
@@ -101,11 +112,16 @@ Las variables sensibles se encuentran en archivos `.env` encriptados. Para traba
 
 ### 🔓 Desencriptar:
 
+Nota: Importante siempre correr este comando para tener los .env actualizados desde la rama main
+
 ```bash
 npm run decrypt:env
 ```
 
 ### 🔐 Encriptar (antes de subir a Git):
+
+Nota: Importante cada vez que modifiquemos un .env debemos ejecutar este comando para subir los cambios
+a la rama main y mantener todo actualizado
 
 ```bash
 npm run encrypt:env
