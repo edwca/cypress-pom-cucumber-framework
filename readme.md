@@ -161,11 +161,38 @@ Esto habilita navegación con `Ctrl + clic`, autocompletado y validación de ste
 
 ---
 
-## 🐳 Docker
+## 🐳 Docker > Constucción y correr test
 
 ```bash
-docker build -t cypress-tests .
-docker run --rm cypress-tests
+# Comando para construir imagen con la variable de entorno expuesta
+docker build -t cypress-tests --build-arg ENV_SECRET_KEY=Name_Key .
+
+# Comando para correr los test con la env en linea de comando
+docker run -e ENV_SECRET_KEY=Name_Key cypress-tests
+
+# Opcional Comando para construir imagen sin (Recomendado)
+docker build -t cypress-test .
+```
+
+## 🐳 Docker Comandos Generales
+```bash
+# Para eliminar una imagen con co
+# 1.- Listar los contenedores, incluso detenidos
+docker ps -a
+
+# 2.- Eliminar un contenedor que usa esa imagen
+docker rm -f da9d536dccdb
+
+# 3.- Eliminar un contenedor que usa esa imagen
+docker rm -f da9d536dccdb
+
+#Detener una imagen con un contenedor ya funcionando
+docker stop id_image
+Ej: docker stop 4671ca6a5693
+
+#Opcional eliminar imagen docker con npm
+npm run docker:clean
+node scripts/removeDockerImage.js nombre-de-la-imagen
 ```
 
 ---
