@@ -1,43 +1,58 @@
-# Imagen base oficial de Cypress con navegadores
+# Imagen base oficial de Cypress (incluye navegadores + Node.js)
 FROM cypress/included:12.12.0
 
-# 🧑 Ejecutamos como root para instalar paquetes
+# Ejecutamos como root para instalar dependencias del sistema
 USER root
 
-# 🔧 Previene errores de D-Bus en ejecución de Chrome
+# 🔧 Variables útiles y previene errores comunes
 ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
-
-# 🧪 Variables útiles para npm y consola
 ENV TERM=xterm
 ENV npm_config_loglevel=warn
 ENV npm_config_unsafe_perm=true
 
-# ✅ Elimina repo conflictivo de Chrome (evita errores GPG)
+# ✅ Elimina repositorios conflictivos (Chrome)
 RUN rm /etc/apt/sources.list.d/google-chrome.list || true
 
-# 📈 Instala zip y git
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-    zip git \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+# 🧱 Prepara directorios requeridos para man y Java
+RUN mkdir -p /usr/share/man/man1
 
-# 🔍 Verificamos versiones
-RUN node -v && npm -v && google-chrome --version && zip --version && git --version
+# 📦 Instala utilidades necesarias: zip, git, Java (OpenJDK 17), y servidor HTTP
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    zip git openjdk-17-jre && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
-# 📁 Directorio de trabajo dentro del contenedor
+# ☕ Configura JAVA
+ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+ENV PATH="${JAVA_HOME}/bin:${PATH}"
+
+# 🔍 Verifica versiones clave
+RUN node -v && npm -v && google-chrome --version && zip --version && git --version && java -version
+
+# 📁 Directorio de trabajo del proyecto
 WORKDIR /app
 
-# 📦 Copia dependencias y las instala
+# 📦 Copia dependencias e instala
 COPY package*.json ./ 
 COPY tsconfig.json ./
 RUN npm install
 
-# 📂 Copia el resto del proyecto
+# 📂 Copia todo el proyecto
 COPY . .
 
-# 📊 Instala Allure CLI global
-RUN npm install -g allure-commandline --save-dev
+# ✅ Asegúrate de copiar los archivos encriptados
+COPY *.enc ./
 
-# 🚀 Comando de ejecución por defecto
-CMD ["sh", "-c", "if [ -z \"$ENV_SECRET_KEY\" ]; then echo '❌ Falta ENV_SECRET_KEY'; exit 1; fi && npx tsx scripts/decrypt-env.ts && npm run test:qa-sr"]
+# 📊 Instala Allure CLI (requiere Java) y servidor HTTP
+RUN npm install -g allure-commandline serve --save-dev
+
+# 🖥️ Expone puerto del reporte
+EXPOSE 3000
+
+# 🚀 Copia script de entrada
+COPY entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
+
+# 🎯 Ejecuta el script que hace todo: decrypt + test + serve report
+ENTRYPOINT ["sh", "/app/entrypoint.sh"]

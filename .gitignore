@@ -8,7 +8,7 @@ cypress/screenshots/
 cypress/videos/
 cypress/downloads/
 
-# # Env files
+# Env files
 .env*
 !.env*.enc
 

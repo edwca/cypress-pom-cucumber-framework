@@ -1,0 +1,5 @@
+# Ignora todos los archivos .env
+.env*
+
+# Pero permite explícitamente los archivos encriptados
+!.env*.enc

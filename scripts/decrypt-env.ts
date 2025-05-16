@@ -4,6 +4,11 @@ import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { config } from 'dotenv';
 import path from 'path';
 
+// Guardamos la clave desde el entorno global antes de usar dotenv
+const ENV_SECRET_KEY_FROM_ENV = process.env.ENV_SECRET_KEY;
+
+console.log('🔑 EL ENV_SECRET_KEY utilizado es:', ENV_SECRET_KEY_FROM_ENV);
+
 const envFiles = ['.env.qa', '.env.devel', '.env.regresion'];
 
 envFiles.forEach((envFile) => {
@@ -15,15 +20,15 @@ envFiles.forEach((envFile) => {
     return;
   }
 
-  // Carga ENV_SECRET_KEY desde el archivo original si existe
+  // Cargar otras variables si el .env base existe
   if (existsSync(envPath)) {
     config({ path: envPath });
   }
 
-  const password = process.env.ENV_SECRET_KEY;
+  const password = ENV_SECRET_KEY_FROM_ENV;
 
   if (!password) {
-    console.error(`❌ ENV_SECRET_KEY no está definido para ${envFile}.`);
+    console.error(`❌ ENV_SECRET_KEY no está definido para desencriptar ${envFile}.`);
     return;
   }
 
@@ -43,3 +48,4 @@ envFiles.forEach((envFile) => {
   }
 });
 
+console.log('🔓 Desencriptación finalizada ✅');

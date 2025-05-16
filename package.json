@@ -12,13 +12,15 @@
     "decrypt:env": "tsx scripts/decrypt-env.ts",
     "test:connectiondb": "cross-env CYPRESS_ENV=qa tsx database/database.ts",
     "repair:cy": "npx cypress cache clear && npx cypress install",
-    "clean:cycache": "cross-env tsx scripts/cleanCyCache.ts",
+    "clean:cycache": "cross-env tsx scripts/clean-cy-cache.ts",
     "allure:generate": "allure generate allure-results --clean -o allure-report",
     "allure:open": "allure open allure-report",
     "allure:clear": "rimraf allure-results allure-report",
     "lint": "eslint . --ext .ts",
-    "docker:build": "dotenv -e .env.qa -- docker build -t cypress-tests --build-arg ENV_SECRET_KEY=$ENV_SECRET_KEY .",
-    "docker:clean": "npx tsx scripts/removeDockerImage.ts"
+    "docker:build": "tsx scripts/docker-build.ts",
+    "docker:run": "tsx scripts/docker-run.ts",
+    "docker:clean": "npx tsx scripts/remove-docker-image.ts",
+    "docker:open-report": "npx serve reportes/allure-report"
   },
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^22.0.1",
@@ -31,6 +33,7 @@
     "allure-cypress": "^3.2.1",
     "allure-js-commons": "^3.2.1",
     "cross-env": "^7.0.3",
+    "cross-env-shell": "^7.0.3",
     "cypress": "^14.2.1",
     "cypress-on-fix": "^1.1.0",
     "cypress-real-events": "^1.14.0",
