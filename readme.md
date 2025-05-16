@@ -192,7 +192,9 @@ Ej: docker stop 4671ca6a5693
 
 #Opcional eliminar imagen docker con npm
 npm run docker:clean
-node scripts/removeDockerImage.js nombre-de-la-imagen
+node scripts/removeDockerImage.ts nombre-de-la-imagen
+# por defecto elimina las imagenes con nombre cypress-tests
+# necesita permisos de administrador par ejecutar la powershell
 ```
 
 ---
