@@ -161,7 +161,39 @@ Esto habilita navegación con `Ctrl + clic`, autocompletado y validación de ste
 
 ---
 
-## 🐳 Docker > Constucción y correr test
+## 🐳 Docker > Constucción y ejecución de test
+
+> En el presente proyecto "Cypress + Node 20.1.0 + Java 17 + Allure", utilizamos un dockerfile personalizado para la ejecución de los test. Los script 
+de construcción y ejecución de la imagen que se encuentran indicados en el package.json. 
+A modo de lectura y aprendizaje podemos ver un proceso similar registrado en:
+https://medium.com/testing-with-cypress/running-cypress-tests-in-docker-containers-using-different-docker-images-2dee3450881e
+
+> Tambien en el proyecto utilizamos imagen de cypress "cypress/included:12.12.0" ya que esta ya contiene:
+
+```bash
+Componente	   Detalle
+Cypress	       Versión 12.12.0
+Node.js	       Node v18.16.0
+npm	           Incluido junto con Node.js
+Google         Chrome	Chrome 113.0.5672.92
+Chromedriver	 Incluido, compatible con la versión de Chrome
+Xvfb	         Virtual framebuffer necesario para ejecutar navegadores sin interfaz
+Sistema        operativo base	debian:bullseye-slim
+Cypress        CLI instalado globalmente (cypress run, cypress open, etc.)
+Dependencias   necesarias para correr navegadores headless
+Herramientas   del sistema esenciales (como bash, curl, etc.)
+```
+
+> 🔍 ¿Qué no incluye?
+```bash
+Java       (Instalado en imagen manualmente openjdk-17, necesario para reportes allure)
+Allure CLI (Instalado en imagen manualmente)
+Git        (Instalado en imagen manualmente)
+zip, unzip, o utilidades auxiliares (Instalado en imagen manualmente como lo hiciste tú)
+Navegadores Firefox o Edge (instalado en imagen manualmente solo Chrome)
+```
+
+## 🐳 Comandos de ejecución:
 
 ```bash
 # Comando para construir imagen con la variable de entorno expuesta
@@ -176,6 +208,8 @@ npm run docker:clean
 ```
 
 ## 🐳 Docker Comandos Generales
+
+
 ```bash
 # Para eliminar una imagen con contenedor
 # 1.- Listar los contenedores, incluso detenidos
@@ -204,7 +238,6 @@ ls -la #Permite ver los archivos dentro del contenedor
 
 
 ```
-
 ---
 
 ## 🛠️ GitHub Actions
