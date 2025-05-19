@@ -194,7 +194,6 @@ Navegadores Firefox o Edge (instalado en imagen manualmente solo Chrome)
 ```
 
 ## 🐳 Comandos de ejecución:
-
 ```bash
 # Comando para construir imagen con la variable de entorno expuesta
 npm run docker:build
@@ -203,13 +202,12 @@ npm run docker:build
 npm run docker:run
 
 #Eliminar imagen buildeada con npm
+# por defecto elimina las imagenes con nombre cypress-tests
 npm run docker:clean
 
 ```
 
 ## 🐳 Docker Comandos Generales
-
-
 ```bash
 # Para eliminar una imagen con contenedor
 # 1.- Listar los contenedores, incluso detenidos
@@ -225,29 +223,23 @@ docker rm -f da9d536dccdb
 docker stop id_image
 Ej: docker stop 4671ca6a5693
 
-
-# por defecto elimina las imagenes con nombre cypress-tests
-# necesita permisos de administrador par ejecutar la powershell
-
-## Modo interactivo de docker (podemos ver su contenido)
+# Modo interactivo de docker (podemos ver su contenido)
 docker build -t cypress-tests --build-arg ENV_SECRET_KEY=Name_Key .
 
 # Dentro del contenedor:
 docker run -it --rm --entrypoint /bin/sh cypress-tests
 ls -la #Permite ver los archivos dentro del contenedor
 
-
+IMPORTANTE: Se necesita permisos de administrador par ejecutar los comandos desde powershell
 ```
 ---
 
 ## 🛠️ GitHub Actions
-
 Se ejecuta automáticamente en cada push a `devel` y `main` mediante `.github/workflows/cypress.yml`.
 
 ---
 
 ## 🧠 Consideraciones
-
 - Todos los comandos personalizados están en `commands.ts`
 - Las credenciales se leen desde `.env.[entorno]` y son inyectadas en `cypress.config.ts`
 - El patrón Page Object Model está definido en `cypress/pages`
@@ -258,8 +250,7 @@ Se ejecuta automáticamente en cada push a `devel` y `main` mediante `.github/wo
 > Proyecto validado en VS Code 1.98.2 usando la extensión "test Cucumber (Gherkin) Full Support" con TypeScript.
 
 ## 🧠 Configuraciones adicionales
-
-- Adicionar al proyecto archivo cypress-cucumber-preprocesor.config.ts:
+- Se adiciona al proyecto archivo cypress-cucumber-preprocesor.config.ts:
 
 ```
 const config = {
@@ -291,8 +282,7 @@ export default config;
 ```
 
 ## 🧠 Linter
-
-Arcbhivo de congiguración ".eslintrc.js"
+Archivo de congiguración ".eslintrc.js"
 
 ```
 npm install --save-dev eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-plugin-cypress eslint-plugin-cucumber
