@@ -1,51 +1,31 @@
 /* eslint-disable no-console */
-import { createDecipheriv, scryptSync } from 'crypto';
-import { readFileSync, writeFileSync, existsSync } from 'fs';
-import { config } from 'dotenv';
-import path from 'path';
+// scripts/decrypt-env.ts
+import * as fs from "fs";
+import * as crypto from "crypto";
+import * as path from "path";
+import { glob } from "glob";
 
-// Guardamos la clave desde el entorno global antes de usar dotenv
-const ENV_SECRET_KEY_FROM_ENV = process.env.ENV_SECRET_KEY;
+const algorithm = "aes-256-cbc";
+const key = crypto.scryptSync(process.env.ENV_SECRET_KEY || "", "salt", 32);
 
-console.log('🔑 EL ENV_SECRET_KEY utilizado es:', ENV_SECRET_KEY_FROM_ENV);
+const encFiles = glob.sync(".env.*.enc");
 
-const envFiles = ['.env.qa', '.env.devel', '.env.regresion'];
+if (!encFiles.length) {
+  console.info("❗ No se encontraron archivos .env.*.enc para desencriptar.");
+  process.exit(0);
+}
 
-envFiles.forEach((envFile) => {
-  const envPath = path.resolve(envFile);
-  const encPath = `${envPath}.enc`;
+encFiles.forEach((encPath) => {
+  const fullPath = path.resolve(encPath);
+  const outputPath = fullPath.replace(".enc", "");
+  const content = fs.readFileSync(fullPath, "utf-8");
+  const [ivHex, encrypted] = content.split(":");
+  const iv = Buffer.from(ivHex, "hex");
 
-  if (!existsSync(encPath)) {
-    console.warn(`⚠️ No se encontró el archivo encriptado: ${encPath}, se omite`);
-    return;
-  }
+  const decipher = crypto.createDecipheriv(algorithm, key, iv);
+  let decrypted = decipher.update(encrypted, "hex", "utf8");
+  decrypted += decipher.final("utf8");
 
-  // Cargar otras variables si el .env base existe
-  if (existsSync(envPath)) {
-    config({ path: envPath });
-  }
-
-  const password = ENV_SECRET_KEY_FROM_ENV;
-
-  if (!password) {
-    console.error(`❌ ENV_SECRET_KEY no está definido para desencriptar ${envFile}.`);
-    return;
-  }
-
-  try {
-    const key = scryptSync(password, 'salt', 32);
-    const file = readFileSync(encPath);
-    const iv = file.subarray(0, 16);
-    const encrypted = file.subarray(16);
-
-    const decipher = createDecipheriv('aes-256-cbc', key, iv);
-    const decrypted = Buffer.concat([decipher.update(encrypted), decipher.final()]);
-
-    writeFileSync(envPath, decrypted);
-    console.log(`✅ ${envFile} desencriptado correctamente`);
-  } catch (err) {
-    console.error(`❌ Error al desencriptar ${envFile}. Clave incorrecta o archivo corrupto.`);
-  }
+  fs.writeFileSync(outputPath, decrypted);
+  console.info(`🔓 Desencriptado: ${outputPath}`);
 });
-
-console.log('🔓 Desencriptación finalizada ✅');
